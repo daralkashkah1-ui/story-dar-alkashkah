@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">متجري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #25D366; --dark: #075E54; --bg: #f4f6f9; }
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: #333; padding-bottom: 40px; }
+        header { background: linear-gradient(135deg, var(--dark), var(--primary)); color: white; text-align: center; padding: 30px 15px; }
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding: 15px; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+        .card h3 { margin: 10px 0; font-size: 1.1rem; }
+        .card p { color: #666; font-size: 0.9rem; height: 40px; overflow: hidden; margin-bottom: 10px; }
+        .price { font-size: 1.2rem; font-weight: bold; color: var(--dark); margin: 10px 0; }
+        .btn-buy { display: block; background: var(--primary); color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; transition: background 0.2s; }
+        .btn-buy:hover { background: #1ebc57; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="storeName">متجري</h1>
+    </header>
+
+    <div class="container">
+        <div class="grid" id="productsGrid"></div>
+    </div>
+
+    <script src="products.js"></script>
+    <script>
+        document.getElementById('pageTitle').innerText = storeData.storeName;
+        document.getElementById('storeName').innerText = storeData.storeName;
+
+        const grid = document.getElementById('productsGrid');
+        if (!storeData.products || storeData.products.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">لا توجد منتجات معروضة حالياً.</p>';
+        } else {
+            grid.innerHTML = storeData.products.map(p => `
+                <div class="card">
+                    <img src="${p.img || 'https://via.placeholder.com/250'}" alt="${p.title}">
+                    <h3>${p.title}</h3>
+                    <p>${p.desc}</p>
+                    <div class="price">${p.price} ريال</div>
+                    <a href="https://wa.me/${storeData.whatsappPhone}?text=${encodeURIComponent('مرحباً، أود طلب المنتج التالي:\n- ' + p.title + '\n- السعر: ' + p.price + ' ريال')}" target="_blank" class="btn-buy">
+                        اطلب الآن عبر واتساب 💬
+                    </a>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
