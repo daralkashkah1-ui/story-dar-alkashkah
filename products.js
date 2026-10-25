@@ -1,6 +1,6 @@
 const storeData = {
     storeName: "متجري الإلكتروني",
-    whatsappPhone: "966540516431", // ضع رقمك هنا مع الرمز الدولي بدون +
+    whatsappPhone: "966549516431", // ضع رقمك هنا مع الرمز الدولي بدون +
     products: [
         {
             title: "سبحة زعفران",
